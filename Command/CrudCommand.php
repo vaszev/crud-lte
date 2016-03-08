@@ -5,7 +5,7 @@ namespace Vaszev\CrudLteBundle\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Sensio\Bundle\GeneratorBundle\Command\GenerateDoctrineCrudCommand;
-use Vaszev\CrudLteBundle\Generator\VaszevCrudGenerator;
+use Vaszev\CrudLteBundle\Generator\VaszevCrudLteGenerator;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
 class CrudCommand extends GenerateDoctrineCrudCommand {
@@ -25,7 +25,7 @@ class CrudCommand extends GenerateDoctrineCrudCommand {
 
   protected function createGenerator($bundle = null) {
     $rootDir = $this->getContainer()->getParameter('kernel.root_dir');
-    return new VaszevCrudGenerator($this->getContainer()->get('filesystem'), $rootDir);
+    return new VaszevCrudLteGenerator($this->getContainer()->get('filesystem'), $rootDir);
   }
 
 

@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Sensio\Bundle\GeneratorBundle\Generator\DoctrineCrudGenerator;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
-class VaszevCrudGenerator extends DoctrineCrudGenerator {
+class VaszevCrudLteGenerator extends DoctrineCrudGenerator {
   protected $formFilterGenerator;
 
 
