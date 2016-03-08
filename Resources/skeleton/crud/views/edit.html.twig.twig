@@ -1,0 +1,65 @@
+{{ "{% extends 'VaszevCrudLteBundle::layout.html.twig' %}" }}
+
+{{ "{% block page_title %}" }}
+{{ "{{ 'views.edit.edit'|trans({'%entity%': '" }}{{ entity }}{{ "'}, 'VaszevCrudLteBundle') }}" }}
+{{ "{% endblock %}" }}
+{{ "{% block page_subtitle %}{% endblock %}" }}
+
+{{ "{% block menu %}{% include 'vaszevCrudMenu.html.twig' %}{% endblock %}" }}
+
+{{ "{% block content %}" }}
+
+  <div class="box box-success">
+    <div class="box-body">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            {{ "{{ form_start(edit_form,{'attr':{'class':''}}) }}" }}
+            {{ "{{ form_widget(edit_form) }}" }}
+            <button type="submit" class="btn btn-success">{{ "{{ 'views.edit.editbutton'|trans({}, 'VaszevCrudLteBundle') }}" }}</button>
+            {{ "{{ form_end(edit_form) }}" }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="box-footer">
+      {% set hide_edit, hide_delete = true, false %}
+      {% include 'crud/views/others/record_actions.html.twig.twig' %}
+    </div>
+  </div>
+
+{{ "{% endblock %}" }}
+
+{{ "{% block content_footer %}{% include 'vaszevCrudFooter.html.twig' %}{% endblock %}" }}
+
+
+{#{{ "{% block title %}" }}#}
+{#{{ "{{ parent() }} -  {{ 'views.edit.edit'|trans({'%entity%': '" }}{{ entity }}{{ "'}, 'VaszevCrudLteBundle') }}" }}#}
+{#{{ "{% endblock %}" }}#}
+
+{#{{     "{% block menu %}" }}#}
+{#{{      "{% block stylesheets %}" }}#}
+{#{{        "{{ parent() }}" }}#}
+{#{{        "{% block stylesheets_sub %}{% endblock %}" }}#}
+{#{{      "{% endblock %}" }}#}
+{#{{      "{% include 'vaszevCrudMenu.html.twig' %}" }}#}
+{#{{    "{% endblock %}" }}#}
+
+{#{{ "{% block page %}" }}#}
+{#<h1>{{ "{{ 'views.edit.edit'|trans({'%entity%': '" }}{{ entity }}{{ "'}, 'VaszevCrudLteBundle') }}" }}</h1>#}
+
+{#<form class="well" action="{{ "{{ path('"~ route_name_prefix ~"_update', { 'id': entity.id }) }}" }}" method="post" {{ "{{ form_enctype(edit_form) }}" }}>#}
+    {#{{ "{{ form_start(edit_form,{'attr':{'class':'well'}}) }}" }}#}
+    {#{{ "{{ form_widget(edit_form) }}" }}#}
+    {#<p>#}
+        {#<button type="submit" class="btn btn-success">{{ "{{ 'views.edit.editbutton'|trans({}, 'VaszevCrudLteBundle') }}" }}</button>#}
+    {#</p>#}
+    {#{{ "{{ form_end(edit_form) }}" }}#}
+{#</form>#}
+
+{#{% set hide_edit, hide_delete = true, false %}#}
+{#{% include 'crud/views/others/record_actions.html.twig.twig' %}#}
+
+{#{{ "{% include 'vaszevCrudFooter.html.twig' %}" }}#}
+
+{#{{ "{% endblock %}" }}#}

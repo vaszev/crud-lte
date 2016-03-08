@@ -1,0 +1,273 @@
+{% set doNotShown = ['created','edited','deleted'] %}
+{{ "{% extends 'VaszevCrudLteBundle::layout.html.twig' %}" }}
+
+{{ "{% block page_title %}" }}{{ entity }}{{ "{% endblock %}" }}
+{{ "{% block page_subtitle %}{% endblock %}" }}
+
+{#
+{{ "{% block title %}" }}
+{{ "{{ parent() }} - {{ 'views.index.list'|trans({'%entity%': '" }}{{ entity }}{{ "'}, 'VaszevCrudLteBundle') }}" }}
+{{ "{% endblock %}" }}
+#}
+
+{{ "{% block menu %}{% include 'vaszevCrudMenu.html.twig' %}{% endblock %}" }}
+
+{#{{     "{% block menu %}" }}
+{{      "{% block stylesheets %}" }}
+{{        "{{ parent() }}" }}
+{{        "{% block stylesheets_sub %}{% endblock %}" }}
+{{      "{% endblock %}" }}
+{{      "{% include 'vaszevCrudMenu.html.twig' %}" }}
+{{    "{% endblock %}" }}#}
+
+
+{{ "{% block content %}" }}
+
+  {{ "{% if filterForm.vars.errors is not empty %}" }}
+  {{ "{# alert-danger (fa-ban) | alert-info (fa-info) | alert-warning (fa-warning) | alert-success (fa-check) #}" }}
+    <div class="alert alert-danger alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      <h4><i class="icon fa fa-ban"></i> {{ "{{ 'views.layout.alert'|trans({}, 'VaszevCrudLteBundle') }}" }}</h4>
+      <div class="">
+        {{ "{{ form_errors(filterForm) }}" }}
+      </div>
+    </div>
+  {{ "{% endif %}" }}
+
+  <div class="box box-warning collapsed-box">
+    <div class="box-header with-border">
+      <h3 class="box-title">
+        {{ "{{ 'views.index.filters'|trans({}, 'VaszevCrudLteBundle') }}" }}
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+      </h3>
+    </div>
+    <div class="box-body">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            {{ "{{ form_start(filterForm,{'attr':{'class':''}}) }}" }}
+            {%- for field, metadata in fields %}
+              {% if field not in doNotShown %}
+                {{ "{{ form_row(filterForm." ~ field ~ ") }}" }}
+              {% endif %}
+            {%- endfor %}
+
+            {{ "{{ form_rest(filterForm) }}" }}
+
+            <p>
+              <button type="submit" name="filter_action" value="filter"
+                      class="btn btn-primary">{{ "{{ 'views.index.filter'|trans({}, 'VaszevCrudLteBundle') }}" }}</button>
+              <button type="submit" name="filter_action" value="reset"
+                      class="btn btn-warning">{{ "{{ 'views.index.reset'|trans({}, 'VaszevCrudLteBundle') }}" }}</button>
+            </p>
+            {{ "{{ form_end(filterForm) }}" }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box box-primary">
+    <div class="box-header">
+      <h3 class="box-title">{{ "{{ 'views.index.list'|trans({'%entity%': '" }}{{ entity }}{{ "'}, 'VaszevCrudLteBundle') }}" }}</h3>
+      {{ "{% if app.session.get('" ~ entity|capitalize ~ "ControllerFilter') %}" }}
+        <span>({{ "{{ 'views.index.filteredList'|trans({}, 'VaszevCrudLteBundle') }}" }})</span>
+      {{ "{% endif %}" }}
+    </div>
+    <div class="box-body">
+      <div id="table1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+        <div class="row">
+          <div class="col-sm-12">
+            <table id="table1" class="table table-bordered table-striped" role="grid"
+                   aria-describedby="table1_info">
+              <thead>
+                <tr role="row">
+                  {%- for field, metadata in fields %}
+                    {% if field != "created" %}
+                      <th><a href="{{ "{{ path('" ~ route_name_prefix ~ "_sort', {'field':'" ~ field ~ "'}) }}" }}">{{ field|capitalize }}</a></th>
+                    {% endif %}
+                  {%- endfor %}
+
+                  <th>{{ "{{ 'views.index.actions'|trans({}, 'VaszevCrudLteBundle') }}" }}</th>
+                </tr>
+              </thead>
+              <tbody>
+              {{ '{% for entity in entities %}' }}
+                <tr role="row" class="{{ "{{ loop.index0 % 2 == 0 ? 'odd' : 'even' }}" }}">
+
+                {%- for field, metadata in fields %}
+                  {% if field != "created" %}
+                    {%- if metadata.type in ['date', 'datetime'] %}
+
+                      <td>{{ '
+                        {% if entity.'~ field|replace({'_': ''}) ~' is not empty %}
+                        {{ entity.'~ field|replace({'_': ''}) ~'|date(\'Y-m-d H:i:s\') }}
+                        {% else %}
+                         -
+                        {% endif %}
+                        ' }}
+                      </td>
+
+                    {%- else %}
+
+                      <td>{{ '{{ entity.'~ field|replace({'_': ''}) ~' }}' }}</td>
+
+                    {%- endif %}
+
+                    {%- if loop.last %}
+
+                      <td>
+                        {%- include "crud/views/others/actions.html.twig.twig" %}
+                      </td>
+
+                    {%- endif %}
+                  {% endif %}
+                {%- endfor %}
+
+              </tr>
+              {{ '{% endfor %}' }}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+
+          <div class="col-sm-7">
+            <div class="dataTables_paginate paging_simple_numbers" id="paginate1">
+              {{ "{{ pagerHtml|raw }}" }}
+            </div>
+          </div>
+
+        </div>
+        <div class="box-footer">
+          <a class="btn btn-primary  pull-right" href="{{ "{{ path('"~ route_name_prefix ~"_new') }}" }}">
+            {{ "{{ 'views.index.createnew'|trans({}, 'VaszevCrudLteBundle') }}" }} {{ entity }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+{{ "{% endblock %}" }}
+
+{{ "{% block content_footer %}{% include 'vaszevCrudFooter.html.twig' %}{% endblock %}" }}
+
+
+
+{#{{ "{% block page %}" }}#}
+
+{#<div class="row">#}
+
+    {#<div class="span8">#}
+        {#<h1>{{ "{{ 'views.index.list'|trans({'%entity%': '" }}{{ entity }}{{ "'}, 'VaszevCrudLteBundle') }}" }}</h1>#}
+        {#{{ "{% if app.session.get('" ~ entity|capitalize ~ "ControllerFilter') %}" }}#}
+          {#<h4>{{ "{{ 'views.index.filteredList'|trans({}, 'VaszevCrudLteBundle') }}" }}</h4>#}
+        {#{{ "{% endif %}" }}#}
+    {#</div>#}
+    {#<div class="span2">#}
+        {#{{ '{% if form_errors(filterForm) %}' }}#}
+        {#<div class="alert alert-block alert-error fade in form-errors">#}
+            {#{{ '{{ form_errors(filterForm) }}' }}#}
+        {#</div>#}
+        {#{{ '{% endif %}' }}#}
+        {#&nbsp;#}
+    {#</div>#}
+    {#<div class="span2">#}
+        {#<div class="filters-right">#}
+            {#<a class="btn dropdown-toggle" data-toggle="collapse" data-target="#filters">#}
+                {#{{ "{{ 'views.index.filters'|trans({}, 'VaszevCrudLteBundle') }}" }}#}
+                {#<span class="caret"></span>#}
+            {#</a>#}
+        {#</div>#}
+    {#</div>#}
+
+    {#<div class="span12">#}
+        {#<div id="filters" class="collapse">#}
+
+            {#<form class="well" action="{{ "{{ path('"~ route_name_prefix ~"') }}" }}" method="get" {{ "{{ form_enctype(filterForm) }}" }}>#}
+              {#{{ "{{ form_start(filterForm,{'attr':{'class':'well'}}) }}" }}#}
+                {#{%- for field, metadata in fields %}#}
+                  {#{% if field not in doNotShown %}#}
+                    {#{{ "{{ form_row(filterForm." ~ field ~ ") }}" }}#}
+                  {#{% endif %}#}
+                {#{%- endfor %}#}
+
+                {#{{ "{{ form_rest(filterForm) }}" }}#}
+
+                {#<p>#}
+                    {#<button type="submit" name="filter_action" value="filter">{{ "{{ 'views.index.filter'|trans({}, 'VaszevCrudLteBundle') }}" }}</button>#}
+                    {#<button type="submit" name="filter_action" value="reset">{{ "{{ 'views.index.reset'|trans({}, 'VaszevCrudLteBundle') }}" }}</button>#}
+                {#</p>#}
+              {#{{ "{{ form_end(filterForm) }}" }}#}
+            {#</form>#}
+        {#</div>#}
+    {#</div>#}
+
+    {#<div class="span12">#}
+
+    {#<table class="table table-striped table-bordered table-condensed">#}
+    {#<thead>#}
+        {#<tr>#}
+        {#{%- for field, metadata in fields %}#}
+          {#{% if field != "created" %}#}
+            {#<th><a href="{{ "{{ path('" ~ route_name_prefix ~ "_sort', {'field':'" ~ field ~ "'}) }}" }}">{{ field|capitalize }}</a></th>#}
+          {#{% endif %}#}
+        {#{%- endfor %}#}
+
+            {#<th>{{ "{{ 'views.index.actions'|trans({}, 'VaszevCrudLteBundle') }}" }}</th>#}
+        {#</tr>#}
+    {#</thead>#}
+    {#<tbody>#}
+    {#{{ '{% for entity in entities %}' }}#}
+        {#<tr>#}
+
+    {#{%- for field, metadata in fields %}#}
+      {#{% if field != "created" %}#}
+        {#{%- if metadata.type in ['date', 'datetime'] %}#}
+
+            {#<td>{{ '#}
+              {#{% if entity.'~ field|replace({'_': ''}) ~' is not empty %}#}
+                {#{{ entity.'~ field|replace({'_': ''}) ~'|date(\'Y-m-d H:i:s\') }}#}
+              {#{% else %}#}
+                {#-#}
+              {#{% endif %}#}
+              {#' }}#}
+            {#</td>#}
+
+        {#{%- else %}#}
+
+            {#<td>{{ '{{ entity.'~ field|replace({'_': ''}) ~' }}' }}</td>#}
+
+        {#{%- endif %}#}
+
+        {#{%- if loop.last %}#}
+
+            {#<td>#}
+                {#{%- include "crud/views/others/actions.html.twig.twig" %}#}
+            {#</td>#}
+
+        {#{%- endif %}#}
+      {#{% endif %}#}
+    {#{%- endfor %}#}
+
+        {#</tr>#}
+    {#{{ '{% endfor %}' }}#}
+    {#</tbody>#}
+{#</table>#}
+    {#</div>#}
+
+    {#<div class="span4">#}
+    {#{{ '{{ pagerHtml|raw }}' }}#}
+    {#</div>#}
+
+    {#{% if 'new' in actions %}#}
+    {#<div class="span8">#}
+    {#<a class="btn btn-primary likepaginator" href="{{ "{{ path('"~ route_name_prefix ~"_new') }}" }}">#}
+            {#{{ "{{ 'views.index.createnew'|trans({}, 'VaszevCrudLteBundle') }}" }} {{ entity }}#}
+        {#</a>#}
+    {#</div>#}
+    {#{% endif %}#}
+{#</div>#}
+
+{#{{ "{% include 'vaszevCrudFooter.html.twig' %}" }}#}
+
+{#{{ "{% endblock %}" }}#}

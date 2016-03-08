@@ -1,0 +1,67 @@
+{% extends 'AvanzuAdminThemeBundle:layout:base-layout.html.twig' %}
+
+{% block title %}{{ 'views.layout.bannersadmin'|trans({}, 'VaszevCrudLteBundle') }}{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+{% endblock %}
+
+{% block javascripts_head %}
+  {{ parent() }}
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+{% endblock %}
+
+{% block avanzu_logo %}
+  <a href="javascript:void(0)" class="logo">
+    {% if admin_logo is defined %}
+      <img src="{{ asset(admin_logo) }}" class="icon" />
+    {% endif %}
+    <!-- Add the class icon to your logo image or logo icon to add the margining -->
+    {{ block('title') }}
+  </a>
+{% endblock %}
+
+{% block avanzu_navbar %}
+  {{ render(controller('AvanzuAdminThemeBundle:Navbar:user')) }}
+{% endblock %}
+
+{% block avanzu_sidebar %}
+  {% block menu %}{% endblock %}
+{% endblock %}
+
+{% block page_title %}Admin{% endblock %}
+{% block page_subtitle %}{% endblock %}
+
+{% block page_content %}
+  {% set flashbag = app.session.flashbag.all() %}
+  {% if flashbag is not empty %}
+      <div class="alert alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h4><i class="icon fa fa-info"></i>{{ 'views.layout.messages'|trans({}, 'VaszevCrudLteBundle') }}</h4>
+        {% for type, flashMessages in flashbag %}
+          {% for flashMessage in flashMessages %}
+            <div class="alert alert-{{ type }}">
+              {{ flashMessage|trans({}, 'VaszevCrudLteBundle') }}
+            </div>
+          {% endfor %}
+        {% endfor %}
+      </div>
+  {% endif %}
+
+  {% block content %}{% endblock %}
+
+{% endblock %}
+
+{% block avanzu_admin_footer %}
+  {% block content_footer %}{% endblock %}
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+{% endblock %}
+
+{% block javascripts_inline %}
+
+{% endblock %}
