@@ -1,11 +1,12 @@
 {
-  "name": "vaszev/crud-bundle",
+  "name": "vaszev/crud-bundle-lte",
   "description": "",
   "keywords": [
     "crud",
-    "generator"
+    "generator",
+    "lte"
   ],
-  "homepage": "https://github.com/vaszev/crud",
+  "homepage": "https://github.com/vaszev/crud-lte",
   "type": "symfony-bundle",
   "license": "MIT",
   "authors": [
@@ -22,10 +23,10 @@
   "minimum-stability": "dev",
   "autoload": {
     "psr-0": {
-      "Vaszev\\CrudBundle": ""
+      "Vaszev\\CrudLteBundle": ""
     }
   },
-  "target-dir": "Vaszev/CrudBundle",
+  "target-dir": "Vaszev/CrudLteBundle",
   "config": {
     "preferred-install": "dist"
   }
