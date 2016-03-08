@@ -5,7 +5,7 @@
 Many thanks to Jordi Llonch for his CrudGeneratorBundle (https://github.com/jordillonch/CrudGeneratorBundle) that I've could modify. This bundle has a nice backend view for your entities. You can filtering, paginating, ordering, soft-deleting your data.
 
 ###how to **install**:
-https://packagist.org/packages/vaszev/crud-lte-bundle
+https://packagist.org/packages/vaszev/crud-bundle-lte
 
 via **composer**:
 ```
@@ -16,6 +16,7 @@ in your **AppKernel.php**:
 ```php
 new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
 new Vaszev\CrudBundle\VaszevCrudBundle(),
+new Avanzu\AdminThemeBundle\AvanzuAdminThemeBundle(),
 ```
 
 ###soft-delete
@@ -50,10 +51,12 @@ Let's create the following files:
 ###final steps
 Don't forget to update your schema.
 ```
-$ php app/console doctrine:schema:update --force
+$ php bin/console assets:install --symlink
+$ php bin/console doctrine:schema:update --force
+$ php bin/console avanzu:admin:fetch-vendor
 ```
 
 You're ready to go
 ```
-$ php app/console vaszev:generate:crud-lte
+$ php bin/console vaszev:generate:crud-lte
 ```
