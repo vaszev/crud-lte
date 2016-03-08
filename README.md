@@ -1,4 +1,4 @@
-#CRUD
+#CRUD-LTE
 
 ##Modified Symfony3 CRUD-LTE generator
 
