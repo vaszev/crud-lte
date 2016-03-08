@@ -15,7 +15,7 @@ $ composer install "vaszev/crud-lte-bundle":"dev-master"
 in your **AppKernel.php**:
 ```php
 new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
-new Vaszev\CrudBundle\VaszevCrudBundle(),
+new Vaszev\CrudLteBundle\VaszevCrudLteBundle(),
 new Avanzu\AdminThemeBundle\AvanzuAdminThemeBundle(),
 ```
 
