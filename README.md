@@ -9,7 +9,7 @@ https://packagist.org/packages/vaszev/crud-bundle-lte
 
 via **composer**:
 ```
-$ composer install "vaszev/crud-lte-bundle":"dev-master"
+$ composer install "vaszev/crud-lte-bundle":"~1.0"
 ```
 
 in your **AppKernel.php**:
@@ -32,6 +32,14 @@ orm:
     not_deleted:
       class:   Vaszev\CrudLteBundle\Filter\NotDeletedFilter
       enabled: true
+avanzu_admin_theme:
+    bower_bin: %bower_path%
+```
+
+And put the following into your parameters.yml file:
+```yaml
+parameters:
+  bower_path: 'c:\Users\anyone\AppData\Roaming\npm\bower'
 ```
 
 ###backend header-footer
