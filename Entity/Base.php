@@ -2,6 +2,7 @@
 
   namespace Vaszev\CrudLteBundle\Entity;
 
+  use Doctrine\Common\Collections\Criteria;
   use Doctrine\ORM\Mapping as ORM;
   use Doctrine\ORM\Mapping\GeneratedValue;
   use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
@@ -105,7 +106,7 @@
      */
     public function setDeleted(\DateTime $deleted = null) {
       $this->deleted = $deleted;
-      $this->isDeleted = intval(! empty($deleted));
+      $this->isDeleted = intval(!empty($deleted));
 
       return $this;
     }
@@ -152,6 +153,12 @@
      */
     public function updateEdited() {
       $this->edited = new \DateTime();
+    }
+
+
+
+    public function filterDeleted() {
+      return Criteria::create()->andWhere(Criteria::expr()->eq("is_deleted", 0));
     }
 
 
