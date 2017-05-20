@@ -35,6 +35,7 @@
 {% block page_subtitle %}{% endblock %}
 
 {% block page_content %}
+  {% set dummy = app.session.flashBag.get('googleApiCallbackRedirect') %}
   {% set flashbag = app.session.flashbag.all() %}
   {% if flashbag is not empty %}
       <div class="alert alert-dismissible">
