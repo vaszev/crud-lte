@@ -1,5 +1,7 @@
+const DEFAULT_ORDER_FIELD = 'id';
+const DEFAULT_ORDER_SEQ = 'DESC';
 
-    public function __construct() {
+public function __construct() {
         $session = new Session();
         $session->set('controller', '{{ entity|lower }}');
     }
@@ -67,6 +69,19 @@
             $queryBuilder->getQuery()->getResult();
           } catch (\Exception $e) {
             $queryBuilder = $queryBuilderSaved;
+          }
+        } else {
+          // has no order, lets ordering by default
+          $fields = explode(",", self::DEFAULT_ORDER_FIELD);
+          $seqs = explode(",", self::DEFAULT_ORDER_SEQ);
+          if (count($fields) == count($seqs)) {
+            for ($o = 0; $o < count($fields); $o++) {
+              if (!$o) {
+                $queryBuilder->orderBy('e.' . trim($fields[$o]), trim($seqs[$o]));
+              } else {
+                $queryBuilder->addOrderBy('e.' . trim($fields[$o]), trim($seqs[$o]));
+              }
+            }
           }
         }
 
