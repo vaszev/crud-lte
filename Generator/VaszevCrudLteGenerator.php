@@ -46,7 +46,7 @@ class VaszevCrudLteGenerator extends DoctrineCrudGenerator {
     $parts = explode('\\', $entity);
     array_pop($parts);
 
-    $this->renderFile('form/FormFilterType.php.twig', $this->classPath, array(
+    $this->renderFile('form/FormFilterType.php.twig', $this->classPath, [
         'fields_data'           => $this->getFieldsDataFromMetadata($metadata),
         'namespace'             => $bundle->getNamespace(),
         'entity_namespace'      => implode('\\', $parts),
@@ -54,7 +54,7 @@ class VaszevCrudLteGenerator extends DoctrineCrudGenerator {
         'bundle'                => $bundle->getName(),
         'form_class'            => $this->className,
         'form_filter_type_name' => strtolower(str_replace('\\', '_', $bundle->getNamespace()) . ($parts ? '_' : '') . implode('_', $parts) . '_' . $this->className),
-    ));
+    ]);
   }
 
 

@@ -14,7 +14,6 @@
      */
     public function indexAction(Request $request)
     {
-        $this->getDoctrine()->getManager()->getFilters()->disable('not_deleted');
         list($filterForm, $queryBuilder) = $this->filter($request);
 
         list($entities, $pagerHtml) = $this->paginator($queryBuilder);

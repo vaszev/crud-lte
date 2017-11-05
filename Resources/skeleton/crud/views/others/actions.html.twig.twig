@@ -1,7 +1,7 @@
 {%- for action in record_actions %}
 
-  <a class="btn btn-xs" href="{{ "{{ path('"~ route_name_prefix ~"_"~ action ~"', { 'id': entity.id }) }}" }}" title="{{ "{{ 'views.actions."~action~"'|trans({}, 'VaszevCrudLteBundle') }}" }}">
-    <i class="icon fa fa-{{ action == "show" ? "eye" : "edit" }}"></i>
+  <a class="btn btn-xs" href="{{ "{{ path('"~ route_name_prefix ~"_edit', { 'id': entity.id }) }}" }}" title="{{ "{{ 'views.actions.edit'|trans({}, 'VaszevCrudLteBundle') }}" }}">
+    <i class="icon fa fa-edit }}"></i>
   </a>
 
 {%- endfor %}

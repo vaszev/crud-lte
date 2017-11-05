@@ -5,9 +5,9 @@
 {% endif %}
 
 {% if 'show' in actions %}
-{{ route_name_prefix }}_show:
-    pattern:  /{id}/show
-    defaults: { _controller: "{{ bundle }}:{{ entity }}:show" }
+{#{{ route_name_prefix }}_edit:#}
+    {#pattern:  /{id}/edit#}
+    {#defaults: { _controller: "{{ bundle }}:{{ entity }}:edit" }#}
 {% endif %}
 
 {% if 'new' in actions %}
