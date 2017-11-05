@@ -20,19 +20,16 @@
         $editForm = $this->createForm({{ entity_class }}Type::class, $entity, [
           'action'=>$this->generateUrl('{{ route_name_prefix }}_update',['id'=>$id]),
         ]);
-        $deleteForm = $this->createDeleteForm($id);
 
 {% if 'annotation' == format %}
         return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         );
 {% else %}
         return $this->render('{{ bundle }}:{{ entity|replace({'\\': '/'}) }}:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
 {% endif %}
     }

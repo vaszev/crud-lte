@@ -3,18 +3,6 @@
     {{ "{{ 'views.recordactions.edit'|trans({}, 'VaszevCrudLteBundle') }}" }}
   </a>
 {% endif %}
-{% if ('delete' in actions) and (not hide_delete) %}
-  {{ "{% if entity.deleted is defined and entity.deleted %}" }}
-  <form action="{{ "{{ path('"~ route_name_prefix ~"_undelete', { 'id': entity.id }) }}" }}" method="post" style="display: inline-block">
-    <button class="btn btn-danger" type="submit">{{ "{{ 'views.recordactions.undelete'|trans({}, 'VaszevCrudLteBundle') }}" }}</button>
-  </form>
-  {{ "{% else %}" }}
-  <form action="{{ "{{ path('"~ route_name_prefix ~"_delete', { 'id': entity.id }) }}" }}" method="post" style="display: inline-block">
-    {{ '{{ form_widget(delete_form) }}' }}
-    <button class="btn btn-danger" type="submit" onclick="return confirm('{{ "{{ 'views.recordactions.confirm'|trans({}, 'VaszevCrudLteBundle')|escape('js') }}" }}');">{{ "{{ 'views.recordactions.delete'|trans({}, 'VaszevCrudLteBundle') }}" }}</button>
-  </form>
-  {{ "{% endif %}" }}
-{% endif %}
 
 <a class="btn pull-right" href="{{ "{{ path('"~ route_name_prefix ~"') }}" }}">
   {{ "{{ 'views.recordactions.backtothelist'|trans({}, 'VaszevCrudLteBundle') }}" }}

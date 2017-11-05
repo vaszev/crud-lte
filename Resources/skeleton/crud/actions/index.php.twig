@@ -124,10 +124,10 @@
           if (!empty($queryBuilder->getDQLPart('where'))) {
             $pagerfanta->setMaxPerPage($cntResult);
           } else {
-            if ($cntResult >= 20) {
-              $pagerfanta->setMaxPerPage(ceil($cntResult / 5));
+            if ($cntResult > 20) {
+              $pagerfanta->setMaxPerPage(ceil($cntResult / 50));
             } else {
-              $pagerfanta->setMaxPerPage(10);
+              $pagerfanta->setMaxPerPage(20);
             }
           }
         }

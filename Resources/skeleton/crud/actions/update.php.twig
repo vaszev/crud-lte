@@ -17,7 +17,6 @@
             throw $this->createNotFoundException('Unable to find {{ entity }} entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm({{ entity_class }}Type::class, $entity, [
           'action'=>$this->generateUrl('{{ route_name_prefix }}_update',['id'=>$id]),
         ]);
@@ -37,13 +36,11 @@
         return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         );
 {% else %}
         return $this->render('{{ bundle }}:{{ entity|replace({'\\': '/'}) }}:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
 {% endif %}
     }
